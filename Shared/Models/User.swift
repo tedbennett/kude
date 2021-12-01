@@ -9,7 +9,7 @@ import Foundation
 
 struct User: Codable, Identifiable {
     var id: String
-    var name: String
+    var name: String = "Member"
     var host: Bool = false
     var session: String?
     
@@ -23,7 +23,7 @@ struct User: Codable, Identifiable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id, name, imageUrl, host, session
+        case id, name, host, session
     }
     
     init(from decoder: Decoder) throws {
@@ -32,9 +32,6 @@ struct User: Codable, Identifiable {
         id = try container.decode(String.self, forKey: .id)
         if let name = try? container.decode(String.self, forKey: .name) {
             self.name = name
-        }
-        if let imageUrl = try? container.decode(String.self, forKey: .imageUrl) {
-            self.imageUrl = imageUrl
         }
         if let session = try? container.decode(String.self, forKey: .session) {
             self.session = session

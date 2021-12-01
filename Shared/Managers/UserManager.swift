@@ -15,22 +15,33 @@ class UserManager {
             self.user = loadedUser
         } else {
             let id = UUID().uuidString
-            self.user = User(id: id)
-            FirebaseManager.shared.createUser(id: id) { _ in }
-            self.saveUser()
+            user = User(id: id)
+            createUser(id: id)
         }
     }
     
     var user: User
     
-    func checkSession(completion: @escaping (Session?) -> Void) {
-        if let session = user.session {
-            FirebaseManager.shared.getSession(id: session) {
-                completion($0)
-                
+    func createUser(id: String) {
+        Task {
+            do {
+                _ = try await FirebaseManager.shared.createUser(id: id)
+            } catch {
+                print("Failed to create user")
             }
-        } else {
-            completion(nil)
+        }
+        saveUser()
+    }
+    
+    func checkSession() async -> Session? {
+        guard let id = user.session else {
+            return nil
+        }
+        do {
+            return try await FirebaseManager.shared.getSession(id: id)
+        } catch {
+            print("Failed to fetch cached session")
+            return nil
         }
     }
     
@@ -40,15 +51,13 @@ class UserManager {
         }
     }
     
-    func updateUser(name: String, completion: @escaping (Bool) -> Void) {
-        FirebaseManager.shared.updateUser(name: name) { success in
-            if success {
-                DispatchQueue.main.async {
-                    self.user.name = name
-                    self.saveUser()
-                }
+    func updateUser(name: String) {
+        Task {
+            do {
+                try await FirebaseManager.shared.updateUser(id: user.id, name: name)
+            } catch {
+                print("Failed to update user")
             }
-            completion(success)
         }
     }
     
@@ -63,19 +72,25 @@ class UserManager {
     }
     
     func authoriseWithSpotify(code: String) {
-        FirebaseManager.shared.authoriseWithSpotify(code: code) { success in
-            DispatchQueue.main.async {
-                self.user.host = success
-                self.saveUser()
+        Task {
+            do {
+                try await FirebaseManager.shared.authoriseWithSpotify(code: code)
+                user.host = true
+                saveUser()
+            } catch {
+                print("Failed to authorise spotify")
             }
         }
     }
     
     func logoutFromSpotify() {
-        FirebaseManager.shared.logoutFromSpotify() { success in
-            DispatchQueue.main.async {
-                self.user.host = !success
-                self.saveUser()
+        Task {
+            do {
+                try await FirebaseManager.shared.logoutFromSpotify()
+                user.host = false
+                saveUser()
+            } catch {
+                print("Failed to logout spotify")
             }
         }
     }

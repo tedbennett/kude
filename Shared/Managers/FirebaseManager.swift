@@ -18,6 +18,7 @@ class FirebaseManager {
     
     private var listener: ListenerRegistration?
     private var db = Firestore.firestore()
+    lazy private var functions = Functions.functions()
 
     // ========================================================================
     // MARK: Sessions
@@ -49,7 +50,6 @@ class FirebaseManager {
             "updatedAt": Date().timeIntervalSince1970
         ])
         return try await getSession(id: id)
-
     }
     
     func updateSession(id: String, name: String, delay: Int) async throws {
@@ -114,6 +114,10 @@ class FirebaseManager {
         }
     }
     
+    func stopListeningToSession() {
+        listener?.remove()
+    }
+    
     // ========================================================================
     // MARK: Users
     // ========================================================================
@@ -139,9 +143,57 @@ class FirebaseManager {
     }
     
     // ========================================================================
-    // MARK: Helper
+    // MARK: Spotify
     // ========================================================================
     
+    
+    func authoriseWithSpotify(code: String) async throws {
+        let userId = UserManager.shared.user.id
+        let result = try await functions.httpsCallable("authoriseSpotify").call(["code": code, "userId": userId])
+        if let result = result.data as? Bool, !result {
+            throw ApiError.spotifyAuthoriseFailed
+        }
+    }
+    
+    func logoutFromSpotify() async throws {
+        let userId = UserManager.shared.user.id
+        try await db.collection("users").document(userId).updateData([
+            "accessToken": NSNull(),
+            "refreshToken": NSNull(),
+            "expiresAt": NSNull()
+        ])
+    }
+    
+    func searchSpotify(for query: String) async throws -> [Song] {
+        let result = try await functions.httpsCallable("searchSpotify").call(["query": query])
+        guard let data = result.data as? [[String: Any]] else {
+            throw ApiError.failedToDecodeResponse
+        }
+        return try data.compactMap { try decode($0) }
+    }
+    
+    func addSongToQueue(_ song: Song, sessionId: String) async throws {
+        let songDict = [
+            "id": song.id,
+            "name": song.name,
+            "artist": song.artist,
+            "album": song.album,
+            "imageUrl": song.imageUrl
+        ]
+        let result = try await functions.httpsCallable("addSongToQueue").call(["song": songDict, "sessionId": sessionId])
+            
+        if let success = result.data as? Bool, !success {
+            throw ApiError.spotifyAuthoriseFailed
+        }
+    }
+    
+    func checkCurrentlyPlaying(id: String) async throws {
+        try await functions.httpsCallable("checkCurrentlyPlaying").call(["sessionId": id])
+    }
+    
+    // ========================================================================
+    // MARK: Helper
+    // ========================================================================
     
     private func decode<T: Decodable>(_ json: [String:Any]) throws -> T {
         let data = try JSONSerialization.data(withJSONObject: json)
@@ -156,4 +208,5 @@ enum ApiError: Error {
     case noData
     case failedToDecodeResponse
     case unknownError
+    case spotifyAuthoriseFailed
 }
