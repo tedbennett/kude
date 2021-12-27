@@ -10,36 +10,16 @@ import Firebase
 
 @main
 struct kudeApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().onOpenURL { url in
+                print("Hey")
+            }
         }
     }
-}
-
-
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-    ) -> Bool {
-        FirebaseApp.configure()
-        MessagingManager.shared.test()
-        UNUserNotificationCenter.current().delegate = self
-        
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions
-        ) { _, _ in }
-        
-        return true
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
-        MessagingManager.shared.handleMessage(userInfo)
-        return .newData
-    }
-    
 }

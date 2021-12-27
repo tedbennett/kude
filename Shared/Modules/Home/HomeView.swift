@@ -9,9 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State private var isKeyFocused = false
     @State private var sessionKey = ""
-    @State private var searchState = SessionState.notSearching
-    
     
     var body: some View {
         GeometryReader { reader in
@@ -22,10 +21,10 @@ struct HomeView: View {
                         .foregroundColor(.gray)
                         .font(.footnote)
                     
-                    joinSessionView
+                    SessionKeyView(key: $sessionKey)
                         .center(.vertical)
                     
-                }.frame(height: reader.size.height / 2)
+                }
                 VStack {
                     sectionTitle("My Session")
                     Group {
@@ -35,8 +34,8 @@ struct HomeView: View {
                             .foregroundColor(.gray)
                             .font(.footnote)
                     }.center(.vertical)
-                }.frame(width: .infinity, height: reader.size.height / 2)
-            }
+                }
+            }.ignoresSafeArea(.keyboard)
         }
     }
     
@@ -50,46 +49,6 @@ struct HomeView: View {
         }
     }
     
-    var joinSessionView: some View {
-        VStack {
-            Spacer()
-            TextField("Enter Key", text: $sessionKey)
-                .textFieldStyle(PlainTextFieldStyle())
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
-            Divider()
-                .padding(.horizontal, 80)
-            
-            switch searchState {
-                case .notSearching:
-                    Spacer()
-                case .invalidKey:
-                    Text("Key must be 6 characters")
-                        .foregroundColor(.red)
-                    Spacer()
-                case .searching:
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                case .foundSession:
-                    Spacer()
-                    NavigationLink {
-                        SessionView()
-                    } label: {
-                        
-                    }
-                    Spacer()
-                    
-                case .didNotFindSession:
-                    Text("Couldn't find session")
-                    Spacer()
-            }
-            
-            
-            
-        }.center(.vertical)
-    }
-    
     func sessionButton(_ session: Session) -> some View {
         NavigationLink {
             SessionView()
@@ -97,15 +56,6 @@ struct HomeView: View {
             Text(session.name)
                 .font(.system(.title2, design: .rounded).bold())
         }
-    }
-    
-    
-    enum SessionState {
-        case notSearching
-        case invalidKey
-        case searching
-        case foundSession
-        case didNotFindSession
     }
 }
 

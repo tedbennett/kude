@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		572B54AE277A5E1D00B8D34D /* SessionKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B54AD277A5E1D00B8D34D /* SessionKeyView.swift */; };
 		5761CEFF2754153C001D43A8 /* kudeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEEF2754153A001D43A8 /* kudeApp.swift */; };
 		5761CF012754153C001D43A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEF02754153A001D43A8 /* ContentView.swift */; };
 		5761CF032754153C001D43A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5761CEF12754153C001D43A8 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF4D27580F38001D43A8 /* HomeView.swift */; };
 		57D1FE8D27720D0000189D55 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8C27720D0000189D55 /* SessionView.swift */; };
 		57D1FE90277234E000189D55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8F277234E000189D55 /* Extensions.swift */; };
+		57F4DAFF277A72F20004807D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DAFE277A72F20004807D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		571A2E06275949D300B18617 /* AppleMusicAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppleMusicAPI; path = ../AppleMusicAPI; sourceTree = "<group>"; };
+		572B54AD277A5E1D00B8D34D /* SessionKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKeyView.swift; sourceTree = "<group>"; };
 		5761CEEF2754153A001D43A8 /* kudeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudeApp.swift; sourceTree = "<group>"; };
 		5761CEF02754153A001D43A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5761CEF12754153C001D43A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 		5761CF4D27580F38001D43A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57D1FE8C27720D0000189D55 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		57D1FE8F277234E000189D55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		57F4DAFE277A72F20004807D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				5761CEEF2754153A001D43A8 /* kudeApp.swift */,
+				57F4DAFE277A72F20004807D /* AppDelegate.swift */,
 				57D1FE8E277234D500189D55 /* Utilities */,
 				5761CF13275415D8001D43A8 /* Models */,
 				5761CF12275415D4001D43A8 /* Managers */,
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				5761CF4D27580F38001D43A8 /* HomeView.swift */,
+				572B54AD277A5E1D00B8D34D /* SessionKeyView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -280,8 +286,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				57D1FE8D27720D0000189D55 /* SessionView.swift in Sources */,
+				572B54AE277A5E1D00B8D34D /* SessionKeyView.swift in Sources */,
 				5761CF3727552CF1001D43A8 /* Song.swift in Sources */,
 				5761CF3327552CCE001D43A8 /* Session.swift in Sources */,
+				57F4DAFF277A72F20004807D /* AppDelegate.swift in Sources */,
 				5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */,
 				5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */,
 				5761CF3D27553461001D43A8 /* UserManager.swift in Sources */,
