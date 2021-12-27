@@ -31,11 +31,20 @@ class FirebaseManager {
         return session
     }
     
+    func getSession(key: String) async throws -> Session {
+        let doc = try await db.collection("sessions").whereField("key", isEqualTo: key).getDocuments()
+        guard let data = doc.documents.first?.data() else { throw ApiError.noData }
+        let session: Session = try decode(data)
+        return session
+    }
+ 
     func createSession() async throws -> Session {
         let user = UserManager.shared.user
         let id = UUID().uuidString
+        let key = String(id.prefix(6))
         try await db.collection("sessions").document(id).setData([
             "id": id,
+            "key": key,
             "name": "\(user.name)'s Session",
             "host": user.id,
             "members": [
@@ -191,6 +200,17 @@ class FirebaseManager {
         try await functions.httpsCallable("checkCurrentlyPlaying").call(["sessionId": id])
     }
     
+    // ========================================================================
+    // MARK: Apple Music
+    // ========================================================================
+    
+    func getDeveloperToken(sessionId: String) async throws {
+        let result = try await functions.httpsCallable("appleMusicDeveloperToken").call(["sessionId": sessionId])
+        
+        if let success = result.data as? Bool, !success {
+            throw ApiError.spotifyAuthoriseFailed
+        }
+    }
     // ========================================================================
     // MARK: Helper
     // ========================================================================

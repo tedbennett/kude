@@ -2,13 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Allow Kude to access your Apple Music queue?</string>
-	<key>kTCCServiceMediaLibrary</key>
-	<string>Allow Kude to access your Apple Music queue?</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.TedB.kude</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kude</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>Allow Kude to access your Apple Music queue?</string>
 </dict>
 </plist>

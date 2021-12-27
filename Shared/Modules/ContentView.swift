@@ -17,16 +17,8 @@ struct ContentView: View {
                     Text("Loading...")
                 }
             } else {
-                Text("HELLO")
-//                HomeView()
-//                if let session = viewModel.session {
-//                    NavigationLink(
-//                        destination: SessionView(session: session, inSession: $viewModel.inSession),
-//                        isActive: $viewModel.inSession,
-//                        label: {
-//                            EmptyView()
-//                        })
-//                }
+                HomeView()
+                    .navigationTitle("Kude")
             }
         }
     }

@@ -27,9 +27,26 @@
 		5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF3E27557DB9001D43A8 /* MessagingManager.swift */; };
 		5761CF412755A5F2001D43A8 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF402755A5F2001D43A8 /* ContentViewModel.swift */; };
 		5761CF432755AB48001D43A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5761CF422755AB48001D43A8 /* GoogleService-Info.plist */; };
+		5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF4D27580F38001D43A8 /* HomeView.swift */; };
+		57D1FE8D27720D0000189D55 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8C27720D0000189D55 /* SessionView.swift */; };
+		57D1FE90277234E000189D55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8F277234E000189D55 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5761CF5C2758238F001D43A8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		571A2E06275949D300B18617 /* AppleMusicAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppleMusicAPI; path = ../AppleMusicAPI; sourceTree = "<group>"; };
 		5761CEEF2754153A001D43A8 /* kudeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudeApp.swift; sourceTree = "<group>"; };
 		5761CEF02754153A001D43A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5761CEF12754153C001D43A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +61,9 @@
 		5761CF3E27557DB9001D43A8 /* MessagingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingManager.swift; sourceTree = "<group>"; };
 		5761CF402755A5F2001D43A8 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		5761CF422755AB48001D43A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5761CF4D27580F38001D43A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		57D1FE8C27720D0000189D55 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
+		57D1FE8F277234E000189D55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,14 +86,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		571A2E05275949D300B18617 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				571A2E06275949D300B18617 /* AppleMusicAPI */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		5761CEE92754153A001D43A8 = {
 			isa = PBXGroup;
 			children = (
+				571A2E05275949D300B18617 /* Packages */,
 				5761CF0E275415A6001D43A8 /* kude (iOS).entitlements */,
 				5761CF0D2754155A001D43A8 /* kude--iOS--Info.plist */,
 				5761CF422755AB48001D43A8 /* GoogleService-Info.plist */,
 				5761CEEE2754153A001D43A8 /* Shared */,
 				5761CEF72754153C001D43A8 /* Products */,
+				5761CF4F27581164001D43A8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				5761CEEF2754153A001D43A8 /* kudeApp.swift */,
+				57D1FE8E277234D500189D55 /* Utilities */,
 				5761CF13275415D8001D43A8 /* Models */,
 				5761CF12275415D4001D43A8 /* Managers */,
 				5761CF11275415CF001D43A8 /* Modules */,
@@ -131,6 +162,7 @@
 		5761CF462756CBD6001D43A8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5761CF4D27580F38001D43A8 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -138,8 +170,24 @@
 		5761CF472756CC66001D43A8 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				57D1FE8C27720D0000189D55 /* SessionView.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		5761CF4F27581164001D43A8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57D1FE8E277234D500189D55 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				57D1FE8F277234E000189D55 /* Extensions.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +200,7 @@
 				5761CEF22754153C001D43A8 /* Sources */,
 				5761CEF32754153C001D43A8 /* Frameworks */,
 				5761CEF42754153C001D43A8 /* Resources */,
+				5761CF5C2758238F001D43A8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -185,6 +234,7 @@
 				TargetAttributes = {
 					5761CEF52754153C001D43A8 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -229,11 +279,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D1FE8D27720D0000189D55 /* SessionView.swift in Sources */,
 				5761CF3727552CF1001D43A8 /* Song.swift in Sources */,
 				5761CF3327552CCE001D43A8 /* Session.swift in Sources */,
 				5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */,
+				5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */,
 				5761CF3D27553461001D43A8 /* UserManager.swift in Sources */,
 				5761CF2B2754E89A001D43A8 /* FirebaseManager.swift in Sources */,
+				57D1FE90277234E000189D55 /* Extensions.swift in Sources */,
 				5761CF412755A5F2001D43A8 /* ContentViewModel.swift in Sources */,
 				5761CF012754153C001D43A8 /* ContentView.swift in Sources */,
 				5761CF3527552CD5001D43A8 /* User.swift in Sources */,
@@ -281,6 +334,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -340,6 +394,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -360,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "kude (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -368,6 +424,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "kude--iOS--Info.plist";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Allow Kude to access your Apple Music queue?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -380,11 +437,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TedB.kude;
 				PRODUCT_NAME = kude;
 				PROVISIONING_PROFILE_SPECIFIER = PushNotificationProfile;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -395,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "kude (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -403,6 +464,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "kude--iOS--Info.plist";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Allow Kude to access your Apple Music queue?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,11 +477,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.kude;
 				PRODUCT_NAME = kude;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
