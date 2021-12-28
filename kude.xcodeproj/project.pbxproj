@@ -34,6 +34,7 @@
 		57F4DAFF277A72F20004807D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DAFE277A72F20004807D /* AppDelegate.swift */; };
 		57F4DB01277A73A50004807D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB00277A73A50004807D /* HomeViewModel.swift */; };
 		57F4DB03277B550F0004807D /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB02277B550F0004807D /* SessionViewModel.swift */; };
+		57F4DB06277B6DDB0004807D /* SongCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB05277B6DDB0004807D /* SongCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		57F4DAFE277A72F20004807D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F4DB00277A73A50004807D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		57F4DB02277B550F0004807D /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
+		57F4DB05277B6DDB0004807D /* SongCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			children = (
 				5761CEF02754153A001D43A8 /* ContentView.swift */,
 				5761CF402755A5F2001D43A8 /* ContentViewModel.swift */,
+				57F4DB04277B6DD20004807D /* SongCell */,
 				5761CF472756CC66001D43A8 /* Session */,
 				5761CF462756CBD6001D43A8 /* Home */,
 			);
@@ -198,6 +201,14 @@
 				57D1FE8F277234E000189D55 /* Extensions.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		57F4DB04277B6DD20004807D /* SongCell */ = {
+			isa = PBXGroup;
+			children = (
+				57F4DB05277B6DDB0004807D /* SongCellView.swift */,
+			);
+			path = SongCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,6 +309,7 @@
 				5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */,
 				5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */,
 				5761CF3D27553461001D43A8 /* UserManager.swift in Sources */,
+				57F4DB06277B6DDB0004807D /* SongCellView.swift in Sources */,
 				5761CF2B2754E89A001D43A8 /* FirebaseManager.swift in Sources */,
 				57D1FE90277234E000189D55 /* Extensions.swift in Sources */,
 				5761CF412755A5F2001D43A8 /* ContentViewModel.swift in Sources */,

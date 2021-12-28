@@ -9,14 +9,34 @@ import SwiftUI
 
 struct SessionView: View {
     
-    @ObservedObject var viewModel: SessionViewModel
+    @StateObject var viewModel: SessionViewModel
     
     init(session: Session) {
-        viewModel = SessionViewModel(session: session)
+        _viewModel = StateObject(wrappedValue: SessionViewModel(session: session))
     }
     
+    
     var body: some View {
-        Text(viewModel.session.key)
+        List {
+            Section(header: HStack {
+                Image(systemName: "square.stack.3d.up")
+                Text("Queue")
+            }) {
+                ForEach(viewModel.session.queue) { song in
+                    SongCellView(song: song)
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle(viewModel.session.name)
+        .navigationBarItems(
+            trailing: HStack {
+                Button {
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                PresentSettingsView()
+            })
     }
 }
 
@@ -25,3 +45,18 @@ struct SessionView_Previews: PreviewProvider {
         SessionView(session: Session.example)
     }
 }
+
+struct PresentSettingsView: View {
+    @State private var presentSettings = false
+    
+    var body: some View {
+        Button {
+            presentSettings.toggle()
+        } label: {
+            Image(systemName: "gear")
+        }.sheet(isPresented: $presentSettings, content: {
+            Text("Settings")
+        })
+    }
+}
+
