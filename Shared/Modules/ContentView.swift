@@ -17,7 +17,7 @@ struct ContentView: View {
                     Text("Loading...")
                 }
             } else {
-                HomeView()
+                HomeView(session: viewModel.session)
                     .navigationTitle("Kude")
             }
         }

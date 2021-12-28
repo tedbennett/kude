@@ -16,9 +16,7 @@
 		</dict>
 	</array>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
+	<array/>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>Allow Kude to access your Apple Music queue?</string>
 </dict>

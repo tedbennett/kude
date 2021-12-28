@@ -15,6 +15,10 @@ class HomeViewModel: ObservableObject {
     @Published var searchState: SessionState = .notSearching
     @Published var startingWebAuthSession = false
     
+    init(session: Session?) {
+        self.session = session
+    }
+    
     private let AUTHORISE_SPOTIFY_URL = URL(string: "https://accounts.spotify.com/authorize?client_id=1e6ef0ef377c443e8ebf714b5b77cad7&response_type=code&redirect_uri=kude://oauth-callback/&scope=user-read-private%20user-modify-playback-state%20user-read-recently-played%20user-read-playback-state&show_dialog=true")!
     
     var isHost: Bool {
@@ -61,7 +65,7 @@ class HomeViewModel: ObservableObject {
         if isHost {
             Task { @MainActor in
                 do {
-                    session = try await FirebaseManager.shared.createSession()
+                    session = try await UserManager.shared.createSession()
                 } catch {
                     
                 }

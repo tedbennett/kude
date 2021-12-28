@@ -36,12 +36,16 @@ struct SessionKeyView: View {
                     ProgressView()
                     Spacer()
                 case .foundSession:
-                    if let _ = viewModel.session {
+                    if let session = viewModel.session {
                         NavigationLink {
-                            SessionView()
+                            SessionView(session: session)
                         } label: {
                             Text("Join")
+                                .padding()
+                                .background(Color(uiColor: .systemGray6))
+                                .cornerRadius(15)
                         }
+                        .buttonStyle(.plain)
                     }
                     
                     Spacer()
@@ -64,6 +68,6 @@ struct SessionKeyView: View {
 
 struct SessionKeyView_Previews: PreviewProvider {
     static var previews: some View {
-        SessionKeyView(viewModel: HomeViewModel())
+        SessionKeyView(viewModel: HomeViewModel(session: nil))
     }
 }

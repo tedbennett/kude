@@ -14,6 +14,7 @@ struct Session: Codable {
     var members: [User]
     var queue: [Song]
     var createdAt: Date
+    var key: String
     var spotifyKey: String?
     var appleMusicKey: String?
     
@@ -24,5 +25,5 @@ struct Session: Codable {
         return URL(string: "https://www.kude.app/session/\(id)")!
     }
     
-    static let example = Session(id: "", name: "New Session", host: "host-id", members: [User(id: "123", name: "James"), User(id: "1234", name: "Donny")], queue: [], createdAt: Date())
+    static let example = Session(id: "", name: "New Session", host: "host-id", members: [User(id: "123", name: "James"), User(id: "1234", name: "Donny")], queue: [], createdAt: Date(), key: "ABCDEF")
 }

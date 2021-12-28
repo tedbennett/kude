@@ -9,7 +9,11 @@ import SwiftUI
 import BetterSafariView
 
 struct HomeView: View {
-    @StateObject private var viewModel = HomeViewModel()
+    @ObservedObject private var viewModel: HomeViewModel
+    
+    init(session: Session?) {
+        viewModel = HomeViewModel(session: session)
+    }
     
     var body: some View {
         VStack {
@@ -56,12 +60,24 @@ struct HomeView: View {
     }
     
     func sessionLink(_ session: Session) -> some View {
-        return NavigationLink {
-            SessionView()
+        NavigationLink {
+            SessionView(session: session)
         } label: {
-            Text(session.name)
-                .font(.system(.title2, design: .rounded).bold())
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(session.name)
+                    .font(.system(.title2, design: .rounded).bold())
+                    Text("\(session.members.count) members")
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                
+            }.padding()
+                .background(Color(uiColor: .systemGray6))
+                .cornerRadius(15)
         }
+        .padding()
+        .buttonStyle(.plain)
     }
     
     var createSessionView: some View {
@@ -92,19 +108,10 @@ struct HomeView: View {
             }
         }
     }
-    
-    func sessionButton(_ session: Session) -> some View {
-        NavigationLink {
-            SessionView()
-        } label: {
-            Text(session.name)
-                .font(.system(.title2, design: .rounded).bold())
-        }
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(session: Session.example)
     }
 }

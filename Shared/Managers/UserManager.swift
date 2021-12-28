@@ -10,7 +10,6 @@ import Foundation
 class UserManager {
     static var shared = UserManager()
     private init() {
-        UserDefaults.standard.removeObject(forKey: "user")
         if let savedUser = UserDefaults.standard.object(forKey: "user") as? Data,
            let loadedUser = try? JSONDecoder().decode(User.self, from: savedUser) {
             self.user = loadedUser
@@ -60,6 +59,12 @@ class UserManager {
                 print("Failed to update user")
             }
         }
+    }
+    
+    func createSession() async throws -> Session {
+        let session = try await FirebaseManager.shared.createSession()
+        addUserToSession(id: session.id, host: true)
+        return session
     }
     
     func addUserToSession(id: String, host: Bool = false) {
