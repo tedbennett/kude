@@ -6,46 +6,90 @@
 //
 
 import SwiftUI
+import BetterSafariView
 
 struct HomeView: View {
-    
-    @State private var isKeyFocused = false
-    @State private var sessionKey = ""
+    @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
-        GeometryReader { reader in
+        VStack {
             VStack {
-                VStack {
-                    sectionTitle("Join A Session")
-                    Text("You can join a session by entering it's six-digit code, or by opening it's URL")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                    
-                    SessionKeyView(key: $sessionKey)
-                        .center(.vertical)
-                    
-                }
-                VStack {
-                    sectionTitle("My Session")
-                    Group {
-                        Image(systemName: "plus.circle.fill").font(.largeTitle)
-                            .padding()
-                        Text("Requires a Spotify Premium subscription")
-                            .foregroundColor(.gray)
-                            .font(.footnote)
-                    }.center(.vertical)
-                }
-            }.ignoresSafeArea(.keyboard)
-        }
+                sectionTitle("Join A Session")
+                    .padding(.vertical, 10)
+                Text("You can join a session by entering it's six-digit code, or by opening it's URL")
+                    .foregroundColor(.gray)
+                    .font(.footnote)
+                
+                SessionKeyView(viewModel: viewModel)
+                    .center(.vertical)
+                
+            }
+            VStack {
+                sectionTitle("My Session")
+                userSessionView
+                    .center(.vertical)
+            }
+        }.ignoresSafeArea(.keyboard)
+        .webAuthenticationSession(
+            isPresented: $viewModel.startingWebAuthSession
+        ) {
+                viewModel.webAuthSession
+            }
     }
     
     func sectionTitle(_ title: String) -> some View {
         return HStack {
             Text(title)
-                .font(
-                    .system(.title2, design: .rounded).bold())
+                .font(.system(.title2, design: .rounded).bold())
                 .padding(.horizontal)
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    var userSessionView: some View {
+        if let session = viewModel.session {
+            sessionLink(session)
+        } else {
+            createSessionView
+        }
+    }
+    
+    func sessionLink(_ session: Session) -> some View {
+        return NavigationLink {
+            SessionView()
+        } label: {
+            Text(session.name)
+                .font(.system(.title2, design: .rounded).bold())
+        }
+    }
+    
+    var createSessionView: some View {
+        return VStack {
+            Button {
+                viewModel.onCreateSessionButtonPressed()
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 60))
+                    .foregroundColor(.primary)
+                    .padding()
+            }
+            if viewModel.isHost {
+                HStack {
+                    Text("Logged in with Spotify")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                    Button {
+                        viewModel.logoutSessionButtonPressed()
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
+                }
+            } else {
+                Text("Requires a Spotify Premium subscription")
+                    .foregroundColor(.gray)
+                    .font(.footnote)
+            }
         }
     }
     

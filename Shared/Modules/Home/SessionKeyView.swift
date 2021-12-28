@@ -8,25 +8,15 @@
 import SwiftUI
 
 struct SessionKeyView: View {
-    
-    enum SessionState {
-        case notSearching
-        case invalidKey
-        case searching
-        case foundSession
-        case didNotFindSession
-    }
-    
-    @Binding var key: String
-    @State private var searchState = SessionState.notSearching
+    @ObservedObject var viewModel: HomeViewModel
     @FocusState private var focused: Bool
     
     var body: some View {
         VStack {
             Spacer()
-            TextField("Enter Key", text: $key)
-                .onChange(of: key) { key in
-                    onKeyChange(key: key)
+            TextField("Enter Key", text: $viewModel.sessionKey)
+                .onChange(of: viewModel.sessionKey) { key in
+                    onKeyChange(key: viewModel.sessionKey)
                 }
                 .focused($focused)
                 .textFieldStyle(PlainTextFieldStyle())
@@ -35,7 +25,7 @@ struct SessionKeyView: View {
             Divider()
                 .padding(.horizontal, 80)
             
-            switch searchState {
+            switch viewModel.searchState {
                 case .notSearching:
                     Spacer()
                 case .invalidKey:
@@ -46,11 +36,14 @@ struct SessionKeyView: View {
                     ProgressView()
                     Spacer()
                 case .foundSession:
-                    NavigationLink {
-                        SessionView()
-                    } label: {
-                        
+                    if let _ = viewModel.session {
+                        NavigationLink {
+                            SessionView()
+                        } label: {
+                            Text("Join")
+                        }
                     }
+                    
                     Spacer()
                     
                 case .didNotFindSession:
@@ -58,18 +51,12 @@ struct SessionKeyView: View {
                     Spacer()
             }
             
-            
-            
         }.center(.vertical)
     }
     
     func onKeyChange(key: String) {
-        self.key = String(key.uppercased().prefix(6))
-        if key.count < 6 {
-            searchState = .invalidKey
-        }
-        if key.count == 6 {
-            searchState = .searching
+        viewModel.onKeyChange(key: key)
+        if viewModel.sessionKey.count == 6 {
             focused = false
         }
     }
@@ -77,6 +64,6 @@ struct SessionKeyView: View {
 
 struct SessionKeyView_Previews: PreviewProvider {
     static var previews: some View {
-        SessionKeyView(key: .constant(""))
+        SessionKeyView(viewModel: HomeViewModel())
     }
 }

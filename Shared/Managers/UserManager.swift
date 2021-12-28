@@ -10,6 +10,7 @@ import Foundation
 class UserManager {
     static var shared = UserManager()
     private init() {
+        UserDefaults.standard.removeObject(forKey: "user")
         if let savedUser = UserDefaults.standard.object(forKey: "user") as? Data,
            let loadedUser = try? JSONDecoder().decode(User.self, from: savedUser) {
             self.user = loadedUser
