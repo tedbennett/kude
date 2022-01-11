@@ -35,7 +35,7 @@ struct SessionView: View {
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
-                PresentSettingsView()
+                PresentSettingsView(session: $viewModel.session)
             })
     }
 }
@@ -48,6 +48,7 @@ struct SessionView_Previews: PreviewProvider {
 
 struct PresentSettingsView: View {
     @State private var presentSettings = false
+    @Binding var session: Session
     
     var body: some View {
         Button {
@@ -55,7 +56,7 @@ struct PresentSettingsView: View {
         } label: {
             Image(systemName: "gear")
         }.sheet(isPresented: $presentSettings, content: {
-            Text("Settings")
+            SessionSettingsView(session: $session, presented: $presentSettings)
         })
     }
 }

@@ -53,7 +53,39 @@ struct HomeView: View {
     @ViewBuilder
     var userSessionView: some View {
         if let session = viewModel.session {
-            sessionLink(session)
+            VStack {
+                sessionLink(session)
+                HStack(spacing: 0) {
+                    Button {
+                        
+                    } label: {
+                        Spacer()
+                        Text("Settings")
+                            .font(.system(.title3, design: .rounded).bold())
+                            .foregroundColor(.gray)
+                            .padding()
+                        Spacer()
+                    }
+                    .background(Color(uiColor: .systemGray6))
+                    .cornerRadius(15)
+                    .padding(.leading)
+                    .padding(.trailing, 5)
+                    Button {
+                        
+                    } label: {
+                        Spacer()
+                        Text("Delete")
+                            .font(.system(.title3, design: .rounded).bold())
+                            .foregroundColor(.red)
+                            .padding()
+                        Spacer()
+                    }
+                    .background(Color.red.opacity(0.5))
+                    .cornerRadius(15)
+                    .padding(.leading, 5)
+                    .padding(.trailing)
+                }
+            }
         } else {
             createSessionView
         }
@@ -73,10 +105,12 @@ struct HomeView: View {
                 Image(systemName: "chevron.right")
                 
             }.padding()
+            
+                .padding(.vertical)
                 .background(Color(uiColor: .systemGray6))
                 .cornerRadius(15)
         }
-        .padding()
+        .padding(.horizontal)
         .buttonStyle(.plain)
     }
     

@@ -149,6 +149,19 @@ class FirebaseManager {
         try await db.collection("users").document(id).updateData([
             "name": name
         ])
+        
+        if let sessionId = UserManager.shared.user.session {
+            let session = try await getSession(id: sessionId)
+            let members: [User] = session.members.map {
+                if $0.id == id {
+                    return User(id: $0.id, name: name)
+                }
+                return $0
+            }
+            try await db.collection("sessions").document(sessionId).updateData([
+                "members": members.map { ["name": $0.name, "id": $0.id]}
+            ])
+        }
     }
     
     // ========================================================================
