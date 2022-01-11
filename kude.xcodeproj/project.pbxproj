@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		572B54AE277A5E1D00B8D34D /* SessionKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B54AD277A5E1D00B8D34D /* SessionKeyView.swift */; };
+		574BA614278E4CB200642013 /* QueueSongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BA613278E4CB200642013 /* QueueSongButton.swift */; };
 		5761CEFF2754153C001D43A8 /* kudeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEEF2754153A001D43A8 /* kudeApp.swift */; };
 		5761CF012754153C001D43A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEF02754153A001D43A8 /* ContentView.swift */; };
 		5761CF032754153C001D43A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5761CEF12754153C001D43A8 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		572B54AD277A5E1D00B8D34D /* SessionKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKeyView.swift; sourceTree = "<group>"; };
+		574BA613278E4CB200642013 /* QueueSongButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSongButton.swift; sourceTree = "<group>"; };
 		5761CEEF2754153A001D43A8 /* kudeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudeApp.swift; sourceTree = "<group>"; };
 		5761CEF02754153A001D43A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5761CEF12754153C001D43A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,6 +108,14 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		574BA612278E4CA100642013 /* QueueSongButton */ = {
+			isa = PBXGroup;
+			children = (
+				574BA613278E4CB200642013 /* QueueSongButton.swift */,
+			);
+			path = QueueSongButton;
+			sourceTree = "<group>";
+		};
 		5761CEE92754153A001D43A8 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +156,7 @@
 			children = (
 				5761CEF02754153A001D43A8 /* ContentView.swift */,
 				5761CF402755A5F2001D43A8 /* ContentViewModel.swift */,
+				574BA612278E4CA100642013 /* QueueSongButton */,
 				57F4DB07277B7A1D0004807D /* SessionSettings */,
 				57F4DB04277B6DD20004807D /* SongCell */,
 				5761CF472756CC66001D43A8 /* Session */,
@@ -330,6 +341,7 @@
 				57D1FE90277234E000189D55 /* Extensions.swift in Sources */,
 				5761CF412755A5F2001D43A8 /* ContentViewModel.swift in Sources */,
 				5761CF012754153C001D43A8 /* ContentView.swift in Sources */,
+				574BA614278E4CB200642013 /* QueueSongButton.swift in Sources */,
 				5761CF3527552CD5001D43A8 /* User.swift in Sources */,
 				57F4DB01277A73A50004807D /* HomeViewModel.swift in Sources */,
 				5761CEFF2754153C001D43A8 /* kudeApp.swift in Sources */,

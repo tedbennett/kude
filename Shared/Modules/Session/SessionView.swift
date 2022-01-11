@@ -10,6 +10,7 @@ import SwiftUI
 struct SessionView: View {
     
     @StateObject var viewModel: SessionViewModel
+    @State private var presentSearch = false
     
     init(session: Session) {
         _viewModel = StateObject(wrappedValue: SessionViewModel(session: session))
@@ -18,6 +19,13 @@ struct SessionView: View {
     
     var body: some View {
         List {
+            QueueSongButton(
+                initialProgress: $viewModel.secondsSinceQueue,
+                secondsProgressed: $viewModel.secondsProgressed,
+                queueDelay: viewModel.session.delay
+            ) {
+                presentSearch.toggle()
+            }
             Section(header: HStack {
                 Image(systemName: "square.stack.3d.up")
                 Text("Queue")
@@ -37,6 +45,10 @@ struct SessionView: View {
                 }
                 PresentSettingsView(session: $viewModel.session)
             })
+        
+        .sheet(isPresented: $presentSearch, content: {
+            
+        })
     }
 }
 
