@@ -25,6 +25,21 @@ class SessionViewModel: ObservableObject {
         } else {
             secondsSinceQueue = Int.max
         }
+        FirebaseManager.shared.listenToSession(id: session.id) { session in
+            guard let session = session else {
+                // TODO: Session is deleted
+                FirebaseManager.shared.stopListeningToSession()
+                return
+            }
+            DispatchQueue.main.async {
+                self.session = session
+            }
+        }
+    }
+    
+    var upcomingQueue: [Song] {
+        let index = session.currentlyPlaying ?? 0
+        return session.queue.suffix(session.queue.count - index)
     }
     
     func addSongToQueue(_ song: Song) {
@@ -39,6 +54,7 @@ class SessionViewModel: ObservableObject {
                 addingSongToSession = false
                 failedToAddSong = true
             }
+            checkCurrentlyPlaying()
         }
     }
     
@@ -57,7 +73,7 @@ class SessionViewModel: ObservableObject {
     
     func checkCurrentlyPlaying() {
         Task {
-            try? await FirebaseManager.shared.checkCurrentlyPlaying(id: session.id)
+            try! await FirebaseManager.shared.checkCurrentlyPlaying(id: session.id)
         }
     }
 }

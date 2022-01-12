@@ -43,7 +43,7 @@ struct SessionView: View {
                 Image(systemName: "square.stack.3d.up")
                 Text("Queue")
             }) {
-                ForEach(viewModel.session.queue) { song in
+                ForEach(viewModel.upcomingQueue) { song in
                     SongCellView(song: song)
                 }
             }
