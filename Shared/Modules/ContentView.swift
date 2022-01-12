@@ -18,9 +18,11 @@ struct ContentView: View {
                 }
             } else {
                 HomeView(session: viewModel.session)
-                    .navigationTitle("Kude")
+                    .navigationTitle(Text("Kude"))
+                    .tint(Color(uiColor: .systemPurple))
+                    
             }
-        }
+        }.accentColor(Color(uiColor: .systemPurple))
     }
 }
 

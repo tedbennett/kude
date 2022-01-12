@@ -16,6 +16,9 @@ struct SessionView: View {
     
     init(session: Session) {
         _viewModel = StateObject(wrappedValue: SessionViewModel(session: session))
+
+        UITableView.appearance().showsVerticalScrollIndicator = false
+
     }
     
     var shareButton: some View {
