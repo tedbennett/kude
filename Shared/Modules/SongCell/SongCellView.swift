@@ -11,7 +11,11 @@ struct SongCellView: View {
     var song: Song
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: song.imageUrl)).frame(width:80, height: 80).cornerRadius(10)
+            AsyncImage(url: URL(string: song.imageUrl)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }.frame(width:80, height: 80).cornerRadius(10)
             VStack(alignment: .leading, spacing: 0) {
                 Text(song.name)
                     .font(.title3)

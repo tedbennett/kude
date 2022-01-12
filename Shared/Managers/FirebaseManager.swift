@@ -45,7 +45,7 @@ class FirebaseManager {
         try await db.collection("sessions").document(id).setData([
             "id": id,
             "key": key,
-            "name": "\(user.name)'s Session",
+            "name": user.name == "Member" ? "New Session" : "\(user.name)'s Session",
             "host": user.id,
             "members": [
                 [
@@ -205,7 +205,7 @@ class FirebaseManager {
         let result = try await functions.httpsCallable("addSongToQueue").call(["song": songDict, "sessionId": sessionId])
             
         if let success = result.data as? Bool, !success {
-            throw ApiError.spotifyAuthoriseFailed
+            throw ApiError.spotifyQueueSongFailed
         }
     }
     
@@ -242,4 +242,5 @@ enum ApiError: Error {
     case failedToDecodeResponse
     case unknownError
     case spotifyAuthoriseFailed
+    case spotifyQueueSongFailed
 }

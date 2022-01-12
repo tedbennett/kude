@@ -71,7 +71,7 @@ struct HomeView: View {
                     .padding(.leading)
                     .padding(.trailing, 5)
                     Button {
-                        
+                        viewModel.deleteSession()
                     } label: {
                         Spacer()
                         Text("Delete")

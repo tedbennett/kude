@@ -99,6 +99,16 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    func deleteSession() {
+        guard let id = session?.id else {
+            return
+        }
+        Task { @MainActor in
+            try? await FirebaseManager.shared.deleteSession(id: id)
+            session = nil
+        }
+    }
 
     enum SessionState {
         case notSearching

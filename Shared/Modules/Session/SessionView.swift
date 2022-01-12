@@ -6,16 +6,26 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SessionView: View {
     
     @StateObject var viewModel: SessionViewModel
     @State private var presentSearch = false
     
+    
     init(session: Session) {
         _viewModel = StateObject(wrappedValue: SessionViewModel(session: session))
     }
     
+    var shareButton: some View {
+        Button {
+            let av = UIActivityViewController(activityItems: [viewModel.session.url], applicationActivities: nil)
+            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+        } label: {
+            Image(systemName: "square.and.arrow.up")
+        }
+    }
     
     var body: some View {
         List {
@@ -39,16 +49,27 @@ struct SessionView: View {
         .navigationTitle(viewModel.session.name)
         .navigationBarItems(
             trailing: HStack {
-                Button {
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
+                shareButton
                 PresentSettingsView(session: $viewModel.session)
             })
         
         .sheet(isPresented: $presentSearch, content: {
-            
+            SongSearchView(present: $presentSearch) {
+                viewModel.addSongToQueue($0)
+            }
         })
+        .toast(isPresenting: $viewModel.addedSongToSession, duration: 1.0) {
+            AlertToast(type: .complete(.white), title: "Added to Queue!")
+        }
+        .toast(isPresenting: $viewModel.addingSongToSession) {
+            AlertToast(type: .loading)
+        }
+        .alert(isPresented: $viewModel.failedToAddSong) {
+            Alert(title: Text("Failed to add to queue"), message: Text("No active Spotify session found on the host's account"), dismissButton: .destructive(Text("OK")))
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            viewModel.refreshSecondsSinceQueue()
+        }
     }
 }
 
