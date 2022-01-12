@@ -37,8 +37,23 @@ struct HomeView: View {
         .webAuthenticationSession(
             isPresented: $viewModel.startingWebAuthSession
         ) {
-                viewModel.webAuthSession
-            }
+            viewModel.webAuthSession
+        }
+        .sheet(isPresented: $viewModel.presentSettings, content: {
+            settingsSheet
+        })
+        .onOpenURL { url in
+            viewModel.joinSession(from: url)
+        }
+    }
+    
+    @ViewBuilder
+    var settingsSheet: some View {
+        if let session = viewModel.session {
+            SessionSettingsView(session: .constant(session), presented: $viewModel.presentSettings)
+        } else {
+            EmptyView()
+        }
     }
     
     func sectionTitle(_ title: String) -> some View {
@@ -57,7 +72,7 @@ struct HomeView: View {
                 sessionLink(session)
                 HStack(spacing: 0) {
                     Button {
-                        
+                        viewModel.presentSettings.toggle()
                     } label: {
                         Spacer()
                         Text("Settings")
@@ -70,20 +85,37 @@ struct HomeView: View {
                     .cornerRadius(15)
                     .padding(.leading)
                     .padding(.trailing, 5)
-                    Button {
-                        viewModel.deleteSession()
-                    } label: {
-                        Spacer()
-                        Text("Delete")
-                            .font(.system(.title3, design: .rounded).bold())
-                            .foregroundColor(.red)
-                            .padding()
-                        Spacer()
+                    if viewModel.isHost {
+                        Button {
+                            viewModel.deleteSession()
+                        } label: {
+                            Spacer()
+                            Text("Delete")
+                                .font(.system(.title3, design: .rounded).bold())
+                                .foregroundColor(.secondary)
+                                .padding()
+                            Spacer()
+                        }
+                        .background(Color.red.opacity(0.5))
+                        .cornerRadius(15)
+                        .padding(.leading, 5)
+                        .padding(.trailing)
+                    } else {
+                        Button {
+                            viewModel.leaveSession()
+                        } label: {
+                            Spacer()
+                            Text("Leave")
+                                .font(.system(.title3, design: .rounded).bold())
+                                .foregroundColor(Color(.systemBackground))
+                                .padding()
+                            Spacer()
+                        }
+                        .background(Color.red.opacity(0.5))
+                        .cornerRadius(15)
+                        .padding(.leading, 5)
+                        .padding(.trailing)
                     }
-                    .background(Color.red.opacity(0.5))
-                    .cornerRadius(15)
-                    .padding(.leading, 5)
-                    .padding(.trailing)
                 }
             }
         } else {
@@ -92,26 +124,33 @@ struct HomeView: View {
     }
     
     func sessionLink(_ session: Session) -> some View {
-        NavigationLink {
-            SessionView(session: session)
-        } label: {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(session.name)
-                    .font(.system(.title2, design: .rounded).bold())
-                    Text("\(session.members.count) members")
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
+        ZStack {
+            NavigationLink(isActive: $viewModel.presentSessionView) {
+                SessionView(session: session)
+            } label: {
+                EmptyView()
+            }
+            Button {
+                viewModel.presentSessionView.toggle()
+            } label: {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(session.name)
+                            .font(.system(.title2, design: .rounded).bold())
+                        Text(session.members.count == 1 ? "\(session.members.count) member" : "\(session.members.count) members")
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                    
+                }.padding()
                 
-            }.padding()
-            
-                .padding(.vertical)
-                .background(Color(uiColor: .systemGray6))
-                .cornerRadius(15)
+                    .padding(.vertical)
+                    .background(Color(uiColor: .systemGray6))
+                    .cornerRadius(15)
+            }
+            .padding(.horizontal)
+            .buttonStyle(.plain)
         }
-        .padding(.horizontal)
-        .buttonStyle(.plain)
     }
     
     var createSessionView: some View {
@@ -130,10 +169,11 @@ struct HomeView: View {
                         .foregroundColor(.gray)
                         .font(.footnote)
                     Button {
-                        viewModel.logoutSessionButtonPressed()
+                        viewModel.logoutSpotifyButtonPressed()
                     } label: {
                         Image(systemName: "ellipsis")
                     }
+                    .buttonStyle(.plain)
                 }
             } else {
                 Text("Requires a Spotify Premium subscription")
@@ -149,3 +189,4 @@ struct HomeView_Previews: PreviewProvider {
         HomeView(session: Session.example)
     }
 }
+

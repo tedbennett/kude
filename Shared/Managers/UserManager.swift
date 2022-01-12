@@ -55,6 +55,8 @@ class UserManager {
         Task {
             do {
                 try await FirebaseManager.shared.updateUser(id: user.id, name: name)
+                user.name = name
+                saveUser()
             } catch {
                 print("Failed to update user")
             }

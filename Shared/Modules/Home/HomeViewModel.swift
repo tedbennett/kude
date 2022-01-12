@@ -14,9 +14,15 @@ class HomeViewModel: ObservableObject {
     @Published var session: Session?
     @Published var searchState: SessionState = .notSearching
     @Published var startingWebAuthSession = false
+    @Published var presentSettings = false
+    
+    @Published var presentSessionView = false
     
     init(session: Session?) {
         self.session = session
+        if session != nil {
+            listenToSession()
+        }
     }
     
     private let AUTHORISE_SPOTIFY_URL = URL(string: "https://accounts.spotify.com/authorize?client_id=1e6ef0ef377c443e8ebf714b5b77cad7&response_type=code&redirect_uri=kude://oauth-callback/&scope=user-read-private%20user-modify-playback-state%20user-read-recently-played%20user-read-playback-state&show_dialog=true")!
@@ -43,29 +49,48 @@ class HomeViewModel: ObservableObject {
     func findSession() {
         Task { @MainActor in
             do {
-                session = try await FirebaseManager.shared.getSession(key: sessionKey)
-                searchState = .foundSession
+                let session = try await FirebaseManager.shared.getSession(key: sessionKey)
+                searchState = .foundSession(session: session)
             } catch {
                 session = nil
                 searchState = .didNotFindSession
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    if self.searchState == .didNotFindSession {
-                        withAnimation {
-                            self.searchState = .notSearching
-                            self.sessionKey = ""
-                        }
+                    switch self.searchState {
+                        case .didNotFindSession:
+                            withAnimation {
+                                self.searchState = .notSearching
+                                self.sessionKey = ""
+                            }
+                        default: break
                     }
                 }
             }
         }
     }
     
+    func joinSession() {
+        switch searchState {
+            case .foundSession(let session):
+                Task { @MainActor in
+                    do {
+                        let newSession = try await FirebaseManager.shared.joinSession(id: session.id)
+                        UserManager.shared.addUserToSession(id: newSession.id)
+                        self.session = newSession
+                        listenToSession()
+                    } catch {
+                        
+                    }
+                }
+            default: return
+        }
+    }
     
     func onCreateSessionButtonPressed() {
         if isHost {
             Task { @MainActor in
                 do {
                     session = try await UserManager.shared.createSession()
+                    listenToSession()
                 } catch {
                     
                 }
@@ -73,10 +98,6 @@ class HomeViewModel: ObservableObject {
         } else {
             startingWebAuthSession.toggle()
         }
-    }
-    
-    func logoutSessionButtonPressed() {
-        
     }
     
     func onKeyChange(key: String) {
@@ -100,21 +121,84 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    
+    func listenToSession() {
+        guard let session = session else {
+            return
+        }
+        FirebaseManager.shared.listenToSession(id: session.id) {
+            guard let session = $0 else {
+                DispatchQueue.main.async {
+                    self.presentSessionView = false
+                    self.session = nil
+                }
+                FirebaseManager.shared.stopListeningToSession()
+                return
+            }
+            DispatchQueue.main.async {
+                self.session = session
+            }
+        }
+    }
+    
+    func stopListeningToSession() {
+        FirebaseManager.shared.stopListeningToSession()
+    }
+    
+    
+    func leaveSession() {
+        guard let id = session?.id else {
+            return
+        }
+        Task { @MainActor in
+            try? await FirebaseManager.shared.leaveSession(id: id)
+            UserManager.shared.removeUserFromSession()
+            session = nil
+            stopListeningToSession()
+        }
+    }
+    
     func deleteSession() {
         guard let id = session?.id else {
             return
         }
         Task { @MainActor in
             try? await FirebaseManager.shared.deleteSession(id: id)
+            UserManager.shared.removeUserFromSession()
             session = nil
+            stopListeningToSession()
+        }
+    }
+    
+    func joinSession(from url: URL) {
+        func joinSession(from url: URL) {
+            guard url.host == "www.kude.app" || url.host == "kude.app",
+                  url.pathComponents.count == 3,
+                  url.pathComponents[1] == "session" else {
+                      return
+                  }
+            Task { @MainActor in
+                do {
+                    let session = try await FirebaseManager.shared.joinSession(id: url.pathComponents[2])
+                    UserManager.shared.addUserToSession(id: session.id)
+                    self.session = session
+                    listenToSession()
+                } catch {
+                    
+                }   
+            }
         }
     }
 
+    func logoutSpotifyButtonPressed() {
+        UserManager.shared.logoutFromSpotify()
+    }
+    
     enum SessionState {
         case notSearching
         case invalidKey
         case searching
-        case foundSession
+        case foundSession(session: Session)
         case didNotFindSession
     }
 }

@@ -42,6 +42,10 @@ struct SessionSettingsView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("Your Display Name")) {
+                    TextField("Your Name", text: $userNameText)
+                }
+                
                 Section(header: Text("Session Name")) {
                     if isHost {
                         TextField("Session Name", text: $sessionNameText)
@@ -49,12 +53,20 @@ struct SessionSettingsView: View {
                         Text(session.name)
                     }
                 }
-                
-                Section(header: Text("Your Display Name")) {
-                    TextField("Your Name", text: $userNameText)
+                Section(header: Text("Session Key")) {
+                    HStack {
+                        Text(session.key)
+                        Spacer()
+                        Button {
+                            UIPasteboard.general.string = session.key
+                        } label: {
+                            Image(systemName: "square.on.square")
+                        }
+                        
+                    }
                 }
                 
-                Section(header: Text("Settings")) {
+                Section(header: Text("Queue"), footer: Text("Time a session member")) {
                     if isHost {
                         Picker(selection: $delay, label: Text("Queue Delay")) {
                             ForEach(delays, id: \.self) {

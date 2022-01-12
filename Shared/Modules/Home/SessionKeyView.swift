@@ -35,19 +35,25 @@ struct SessionKeyView: View {
                 case .searching:
                     ProgressView()
                     Spacer()
-                case .foundSession:
-                    if let session = viewModel.session {
-                        NavigationLink {
-                            SessionView(session: session)
-                        } label: {
-                            Text("Join")
-                                .padding()
-                                .background(Color(uiColor: .systemGray6))
-                                .cornerRadius(15)
-                        }
-                        .buttonStyle(.plain)
+                case .foundSession(let session):
+                    Button {
+                        viewModel.joinSession()
+                        viewModel.presentSessionView.toggle()
+                        viewModel.sessionKey = ""
+                    } label: {
+                        Text("Join")
+                            .padding()
+                            .background(Color(uiColor: .systemGray6))
+                            .cornerRadius(15)
                     }
-                    
+                    .buttonStyle(.plain)
+                    NavigationLink(
+                        isActive: $viewModel.presentSessionView
+                    ) {
+                        SessionView(session: session)
+                    } label: {
+                        EmptyView()
+                    }
                     Spacer()
                     
                 case .didNotFindSession:
