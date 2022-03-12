@@ -17,6 +17,7 @@ class SessionViewModel: ObservableObject {
     @Published var addedSongToSession = false
     @Published var addingSongToSession = false
     @Published var failedToAddSong = false
+    @Published var copiedKey = false
     
     init(session: Session) {
         self.session = session
@@ -40,6 +41,10 @@ class SessionViewModel: ObservableObject {
     var upcomingQueue: [Song] {
         let index = session.currentlyPlaying ?? 0
         return session.queue.suffix(session.queue.count - index)
+    }
+    
+    func refresh() async {
+        try? await FirebaseManager.shared.checkCurrentlyPlaying(id: session.id)
     }
     
     func addSongToQueue(_ song: Song) {

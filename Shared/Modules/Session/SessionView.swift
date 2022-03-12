@@ -30,6 +30,17 @@ struct SessionView: View {
         }
     }
     
+    
+    var copyKeyButton: some View {
+        Button {
+            UIPasteboard.general.string = viewModel.session.key
+            viewModel.copiedKey.toggle()
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        } label: {
+            Image(systemName: "key")
+        }
+    }
+    
     var body: some View {
         List {
             QueueSongButton(
@@ -49,9 +60,13 @@ struct SessionView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .refreshable {
+            await viewModel.refresh()
+        }
         .navigationTitle(viewModel.session.name)
         .navigationBarItems(
             trailing: HStack {
+                copyKeyButton
                 shareButton
                 PresentSettingsView(session: $viewModel.session)
             })
@@ -66,6 +81,9 @@ struct SessionView: View {
         }
         .toast(isPresenting: $viewModel.addingSongToSession) {
             AlertToast(type: .loading)
+        }
+        .toast(isPresenting: $viewModel.copiedKey, duration: 0.8) {
+            AlertToast(type: .complete(.white), title: "Copied Key!")
         }
         .alert(isPresented: $viewModel.failedToAddSong) {
             Alert(title: Text("Failed to add to queue"), message: Text("No active Spotify session found on the host's account"), dismissButton: .destructive(Text("OK")))

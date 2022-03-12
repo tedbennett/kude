@@ -10,6 +10,7 @@ import BetterSafariView
 
 struct HomeView: View {
     @ObservedObject private var viewModel: HomeViewModel
+    @State private var presentInfo = UserDefaults.standard.integer(forKey: "APP_VERSION") < APP_VERSION
     
     init(session: Session?) {
         viewModel = HomeViewModel(session: session)
@@ -29,11 +30,24 @@ struct HomeView: View {
                 
             }
             VStack {
-                sectionTitle("My Session")
+                if viewModel.currentlyHosting {
+                    sectionTitle("My Session")
+                } else if viewModel.session != nil {
+                    sectionTitle("Current Session")
+                } else {
+                    sectionTitle("Create a Session")
+                }
                 userSessionView
                     .center(.vertical)
             }
         }.ignoresSafeArea(.keyboard)
+            .toolbar {
+                Button {
+                    presentInfo.toggle()
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+            }
         .webAuthenticationSession(
             isPresented: $viewModel.startingWebAuthSession
         ) {
@@ -41,7 +55,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $viewModel.presentSettings, content: {
             settingsSheet
-        })
+        }).sheet(isPresented: $presentInfo) {
+            OnboardingView(present: $presentInfo).accentColor(.purple)
+        }
         .onOpenURL { url in
             viewModel.joinSession(from: url)
         }
@@ -85,18 +101,18 @@ struct HomeView: View {
                     .cornerRadius(15)
                     .padding(.leading)
                     .padding(.trailing, 5)
-                    if viewModel.isHost {
+                    if viewModel.currentlyHosting {
                         Button {
                             viewModel.deleteSession()
                         } label: {
                             Spacer()
                             Text("Delete")
                                 .font(.system(.title3, design: .rounded).bold())
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.red.opacity(0.8))
                                 .padding()
                             Spacer()
                         }
-                        .background(Color.red.opacity(0.5))
+                        .background(Color(uiColor: .systemGray6))
                         .cornerRadius(15)
                         .padding(.leading, 5)
                         .padding(.trailing)
@@ -107,11 +123,11 @@ struct HomeView: View {
                             Spacer()
                             Text("Leave")
                                 .font(.system(.title3, design: .rounded).bold())
-                                .foregroundColor(Color(.systemBackground))
+                                .foregroundColor(.red.opacity(0.8))
                                 .padding()
                             Spacer()
                         }
-                        .background(Color.red.opacity(0.5))
+                        .background(Color(uiColor: .systemGray6))
                         .cornerRadius(15)
                         .padding(.leading, 5)
                         .padding(.trailing)
@@ -131,11 +147,14 @@ struct HomeView: View {
                 EmptyView()
             }
             Button {
+                viewModel.sessionKey = ""
+                viewModel.searchState = .notSearching
                 viewModel.presentSessionView.toggle()
             } label: {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(session.name)
+                            .foregroundColor(.accentColor)
                             .font(.system(.title2, design: .rounded).bold())
                         Text(session.members.count == 1 ? "\(session.members.count) member" : "\(session.members.count) members")
                     }
@@ -160,20 +179,20 @@ struct HomeView: View {
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .font(.system(size: 60))
-                    .foregroundColor(.primary)
+                    .foregroundColor(.accentColor)
                     .padding()
             }
             if viewModel.isHost {
-                HStack {
+                VStack {
                     Text("Logged in with Spotify")
                         .foregroundColor(.gray)
                         .font(.footnote)
                     Button {
                         viewModel.logoutSpotifyButtonPressed()
                     } label: {
-                        Image(systemName: "ellipsis")
+                        Text("Logout")
+                            .font(.footnote)
                     }
-                    .buttonStyle(.plain)
                 }
             } else {
                 Text("Requires a Spotify Premium subscription")

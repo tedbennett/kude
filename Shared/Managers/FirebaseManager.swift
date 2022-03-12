@@ -85,7 +85,7 @@ class FirebaseManager {
         var members = session.members
         members.append(user)
         try await db.collection("sessions").document(id).updateData([
-            "members": members.map { ["name": $0.name, "id": $0.id]},
+            "members": Array(Set(members.map { ["name": $0.name, "id": $0.id]})),
             "updatedAt": Date().timeIntervalSince1970
         ])
         try await db.collection("users").document(user.id).updateData([

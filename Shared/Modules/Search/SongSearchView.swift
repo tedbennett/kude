@@ -17,8 +17,7 @@ struct SongSearchView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Search for tracks", text: $viewModel.searchText)
-                
+                DebouncedTextField(placeholder: "Search for songs", debouncedText: $viewModel.searchText)                
                     .padding(7)
                     .background(RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(.systemGray5)))
@@ -54,5 +53,20 @@ struct SongSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SongSearchView(present: .constant(true)) {_ in}
         .preferredColorScheme(.dark)
+    }
+}
+
+
+
+struct DebouncedTextField : View {
+    var placeholder: String
+    @Binding var debouncedText : String
+    @StateObject private var textObserver = TextFieldObserver()
+    
+    var body: some View {
+        TextField(placeholder, text: $textObserver.searchText)
+            .onReceive(textObserver.$debouncedText) { (val) in
+                debouncedText = val
+            }
     }
 }

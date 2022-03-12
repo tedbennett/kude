@@ -54,6 +54,7 @@ class UserManager {
     func updateUser(name: String) {
         Task {
             do {
+                let name = name.trimmingCharacters(in: .whitespaces)
                 try await FirebaseManager.shared.updateUser(id: user.id, name: name)
                 user.name = name
                 saveUser()
@@ -79,15 +80,15 @@ class UserManager {
         saveUser()
     }
     
-    func authoriseWithSpotify(code: String) {
-        Task {
-            do {
-                try await FirebaseManager.shared.authoriseWithSpotify(code: code)
-                user.host = true
-                saveUser()
-            } catch {
-                print("Failed to authorise spotify")
-            }
+    func authoriseWithSpotify(code: String) async -> Bool {
+        do {
+            try await FirebaseManager.shared.authoriseWithSpotify(code: code)
+            user.host = true
+            saveUser()
+            return true
+        } catch {
+            print("Failed to authorise spotify")
+            return false
         }
     }
     

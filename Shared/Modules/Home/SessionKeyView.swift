@@ -15,6 +15,7 @@ struct SessionKeyView: View {
         VStack {
             Spacer()
             TextField("Enter Key", text: $viewModel.sessionKey)
+                .font(.system(size: 24, weight: .semibold, design: .rounded))
                 .onChange(of: viewModel.sessionKey) { key in
                     onKeyChange(key: viewModel.sessionKey)
                 }
@@ -42,11 +43,18 @@ struct SessionKeyView: View {
                         viewModel.sessionKey = ""
                     } label: {
                         Text("Join")
+                            .foregroundColor(.accentColor)
                             .padding()
                             .background(Color(uiColor: .systemGray6))
                             .cornerRadius(15)
                     }
+                    .disabled(viewModel.currentlyHosting)
                     .buttonStyle(.plain)
+                    
+                    if viewModel.currentlyHosting {
+                        Text("Delete your current session before joining")
+                    }
+                    
                     NavigationLink(
                         isActive: $viewModel.presentSessionView
                     ) {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SessionSettingsView: View {
     @Binding var session: Session
@@ -14,6 +15,8 @@ struct SessionSettingsView: View {
     @State private var sessionNameText: String
     @State private var userNameText: String
     @State private var delay: Int
+    
+    @State private var showCopyToast = false
     
     init(session: Binding<Session>, presented: Binding<Bool>) {
         self._session = session
@@ -59,6 +62,8 @@ struct SessionSettingsView: View {
                         Spacer()
                         Button {
                             UIPasteboard.general.string = session.key
+                            showCopyToast.toggle()
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         } label: {
                             Image(systemName: "square.on.square")
                         }
@@ -66,7 +71,7 @@ struct SessionSettingsView: View {
                     }
                 }
                 
-                Section(header: Text("Queue"), footer: Text("Time a session member")) {
+                Section(header: Text("Queue"), footer: Text("You can prevent session members queueing too many songs at once with a delay")) {
                     if isHost {
                         Picker(selection: $delay, label: Text("Queue Delay")) {
                             ForEach(delays, id: \.self) {
@@ -111,8 +116,11 @@ struct SessionSettingsView: View {
             } label: {
                 Text("Save")
             })
+            .toast(isPresenting: $showCopyToast, duration: 0.8) {
+                AlertToast(type: .complete(.white), title: "Copied Key!")
+            }
             
-        }
+        }.accentColor(Color(uiColor: .systemPurple))
     }
 }
 

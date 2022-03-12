@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct SongCellView: View {
     var song: Song
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: song.imageUrl)) { image in
+            CachedAsyncImage(url: URL(string: song.imageUrl)) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()

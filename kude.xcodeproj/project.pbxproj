@@ -11,6 +11,8 @@
 		574BA614278E4CB200642013 /* QueueSongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BA613278E4CB200642013 /* QueueSongButton.swift */; };
 		574BA617278E4E0100642013 /* SongSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BA616278E4E0100642013 /* SongSearchView.swift */; };
 		574BA619278E4E1200642013 /* SongSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BA618278E4E1200642013 /* SongSearchViewModel.swift */; };
+		574BA61F2790534F00642013 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 574BA61E2790534F00642013 /* CachedAsyncImage */; };
+		574BA6222790830100642013 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BA6212790830100642013 /* OnboardingView.swift */; };
 		5761CEFF2754153C001D43A8 /* kudeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEEF2754153A001D43A8 /* kudeApp.swift */; };
 		5761CF012754153C001D43A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CEF02754153A001D43A8 /* ContentView.swift */; };
 		5761CF032754153C001D43A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5761CEF12754153C001D43A8 /* Assets.xcassets */; };
@@ -20,7 +22,6 @@
 		5761CF1D27541FF5001D43A8 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF1C27541FF5001D43A8 /* FirebaseFirestoreSwift-Beta */; };
 		5761CF1F27541FF5001D43A8 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF1E27541FF5001D43A8 /* FirebaseFunctions */; };
 		5761CF2127541FF5001D43A8 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF2027541FF5001D43A8 /* FirebaseFunctionsCombine-Community */; };
-		5761CF2327541FF5001D43A8 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF2227541FF5001D43A8 /* FirebaseMessaging */; };
 		5761CF262754E872001D43A8 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF252754E872001D43A8 /* BetterSafariView */; };
 		5761CF292754E883001D43A8 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 5761CF282754E883001D43A8 /* SwiftKeychainWrapper */; };
 		5761CF2B2754E89A001D43A8 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF2A2754E89A001D43A8 /* FirebaseManager.swift */; };
@@ -28,13 +29,11 @@
 		5761CF3527552CD5001D43A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF3427552CD5001D43A8 /* User.swift */; };
 		5761CF3727552CF1001D43A8 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF3627552CF0001D43A8 /* Song.swift */; };
 		5761CF3D27553461001D43A8 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF3C27553461001D43A8 /* UserManager.swift */; };
-		5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF3E27557DB9001D43A8 /* MessagingManager.swift */; };
 		5761CF412755A5F2001D43A8 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF402755A5F2001D43A8 /* ContentViewModel.swift */; };
-		5761CF432755AB48001D43A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5761CF422755AB48001D43A8 /* GoogleService-Info.plist */; };
 		5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761CF4D27580F38001D43A8 /* HomeView.swift */; };
+		576F239227DD53DC00BB6D93 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 576F239127DD526200BB6D93 /* GoogleService-Info.plist */; };
 		57D1FE8D27720D0000189D55 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8C27720D0000189D55 /* SessionView.swift */; };
 		57D1FE90277234E000189D55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D1FE8F277234E000189D55 /* Extensions.swift */; };
-		57F4DAFF277A72F20004807D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DAFE277A72F20004807D /* AppDelegate.swift */; };
 		57F4DB01277A73A50004807D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB00277A73A50004807D /* HomeViewModel.swift */; };
 		57F4DB03277B550F0004807D /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB02277B550F0004807D /* SessionViewModel.swift */; };
 		57F4DB06277B6DDB0004807D /* SongCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F4DB05277B6DDB0004807D /* SongCellView.swift */; };
@@ -60,6 +59,7 @@
 		574BA613278E4CB200642013 /* QueueSongButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSongButton.swift; sourceTree = "<group>"; };
 		574BA616278E4E0100642013 /* SongSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchView.swift; sourceTree = "<group>"; };
 		574BA618278E4E1200642013 /* SongSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchViewModel.swift; sourceTree = "<group>"; };
+		574BA6212790830100642013 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5761CEEF2754153A001D43A8 /* kudeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudeApp.swift; sourceTree = "<group>"; };
 		5761CEF02754153A001D43A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5761CEF12754153C001D43A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,13 +71,11 @@
 		5761CF3427552CD5001D43A8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5761CF3627552CF0001D43A8 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		5761CF3C27553461001D43A8 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		5761CF3E27557DB9001D43A8 /* MessagingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingManager.swift; sourceTree = "<group>"; };
 		5761CF402755A5F2001D43A8 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
-		5761CF422755AB48001D43A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5761CF4D27580F38001D43A8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		576F239127DD526200BB6D93 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57D1FE8C27720D0000189D55 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		57D1FE8F277234E000189D55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		57F4DAFE277A72F20004807D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F4DB00277A73A50004807D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		57F4DB02277B550F0004807D /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		57F4DB05277B6DDB0004807D /* SongCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCellView.swift; sourceTree = "<group>"; };
@@ -92,8 +90,8 @@
 			files = (
 				5761CF1B27541FF5001D43A8 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				5761CF1D27541FF5001D43A8 /* FirebaseFirestoreSwift-Beta in Frameworks */,
-				5761CF2327541FF5001D43A8 /* FirebaseMessaging in Frameworks */,
 				5761CF1F27541FF5001D43A8 /* FirebaseFunctions in Frameworks */,
+				574BA61F2790534F00642013 /* CachedAsyncImage in Frameworks */,
 				5761CF1627541B6B001D43A8 /* AlertToast in Frameworks */,
 				5761CF1927541FF5001D43A8 /* FirebaseFirestore in Frameworks */,
 				5761CF2127541FF5001D43A8 /* FirebaseFunctionsCombine-Community in Frameworks */,
@@ -105,13 +103,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		571A2E05275949D300B18617 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		574BA612278E4CA100642013 /* QueueSongButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,13 +120,20 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		574BA620279082F200642013 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				574BA6212790830100642013 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		5761CEE92754153A001D43A8 = {
 			isa = PBXGroup;
 			children = (
-				571A2E05275949D300B18617 /* Packages */,
+				576F239127DD526200BB6D93 /* GoogleService-Info.plist */,
 				5761CF0E275415A6001D43A8 /* kude (iOS).entitlements */,
 				5761CF0D2754155A001D43A8 /* kude--iOS--Info.plist */,
-				5761CF422755AB48001D43A8 /* GoogleService-Info.plist */,
 				5761CEEE2754153A001D43A8 /* Shared */,
 				5761CEF72754153C001D43A8 /* Products */,
 				5761CF4F27581164001D43A8 /* Frameworks */,
@@ -146,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				5761CEEF2754153A001D43A8 /* kudeApp.swift */,
-				57F4DAFE277A72F20004807D /* AppDelegate.swift */,
 				57D1FE8E277234D500189D55 /* Utilities */,
 				5761CF13275415D8001D43A8 /* Models */,
 				5761CF12275415D4001D43A8 /* Managers */,
@@ -169,12 +166,13 @@
 			children = (
 				5761CEF02754153A001D43A8 /* ContentView.swift */,
 				5761CF402755A5F2001D43A8 /* ContentViewModel.swift */,
+				5761CF462756CBD6001D43A8 /* Home */,
+				574BA620279082F200642013 /* Onboarding */,
 				574BA615278E4DEB00642013 /* Search */,
 				574BA612278E4CA100642013 /* QueueSongButton */,
 				57F4DB07277B7A1D0004807D /* SessionSettings */,
 				57F4DB04277B6DD20004807D /* SongCell */,
 				5761CF472756CC66001D43A8 /* Session */,
-				5761CF462756CBD6001D43A8 /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -184,7 +182,6 @@
 			children = (
 				5761CF2A2754E89A001D43A8 /* FirebaseManager.swift */,
 				5761CF3C27553461001D43A8 /* UserManager.swift */,
-				5761CF3E27557DB9001D43A8 /* MessagingManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -274,9 +271,9 @@
 				5761CF1C27541FF5001D43A8 /* FirebaseFirestoreSwift-Beta */,
 				5761CF1E27541FF5001D43A8 /* FirebaseFunctions */,
 				5761CF2027541FF5001D43A8 /* FirebaseFunctionsCombine-Community */,
-				5761CF2227541FF5001D43A8 /* FirebaseMessaging */,
 				5761CF252754E872001D43A8 /* BetterSafariView */,
 				5761CF282754E883001D43A8 /* SwiftKeychainWrapper */,
+				574BA61E2790534F00642013 /* CachedAsyncImage */,
 			);
 			productName = "kude (iOS)";
 			productReference = 5761CEF62754153C001D43A8 /* kude.app */;
@@ -312,6 +309,7 @@
 				5761CF1727541FF5001D43A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5761CF242754E872001D43A8 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				5761CF272754E882001D43A8 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				574BA61D2790534F00642013 /* XCRemoteSwiftPackageReference "SwiftUI-CachedAsyncImage" */,
 			);
 			productRefGroup = 5761CEF72754153C001D43A8 /* Products */;
 			projectDirPath = "";
@@ -328,7 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5761CF032754153C001D43A8 /* Assets.xcassets in Resources */,
-				5761CF432755AB48001D43A8 /* GoogleService-Info.plist in Resources */,
+				576F239227DD53DC00BB6D93 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,10 +343,9 @@
 				57F4DB03277B550F0004807D /* SessionViewModel.swift in Sources */,
 				572B54AE277A5E1D00B8D34D /* SessionKeyView.swift in Sources */,
 				5761CF3727552CF1001D43A8 /* Song.swift in Sources */,
+				574BA6222790830100642013 /* OnboardingView.swift in Sources */,
 				5761CF3327552CCE001D43A8 /* Session.swift in Sources */,
-				57F4DAFF277A72F20004807D /* AppDelegate.swift in Sources */,
 				57F4DB09277B7A290004807D /* SessionSettingsView.swift in Sources */,
-				5761CF3F27557DB9001D43A8 /* MessagingManager.swift in Sources */,
 				5761CF4E27580F38001D43A8 /* HomeView.swift in Sources */,
 				5761CF3D27553461001D43A8 /* UserManager.swift in Sources */,
 				57F4DB06277B6DDB0004807D /* SongCellView.swift in Sources */,
@@ -419,6 +416,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -473,6 +471,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -489,11 +488,12 @@
 				CODE_SIGN_ENTITLEMENTS = "kude (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "kude--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Kude;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Allow Kude to access your Apple Music queue?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -529,11 +529,12 @@
 				CODE_SIGN_ENTITLEMENTS = "kude (iOS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "kude--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Kude;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Allow Kude to access your Apple Music queue?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -548,7 +549,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.kude;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TedB.kude;
 				PRODUCT_NAME = kude;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -584,6 +585,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		574BA61D2790534F00642013 /* XCRemoteSwiftPackageReference "SwiftUI-CachedAsyncImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/SwiftUI-CachedAsyncImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		5761CF1427541B6B001D43A8 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast";
@@ -619,6 +628,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		574BA61E2790534F00642013 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 574BA61D2790534F00642013 /* XCRemoteSwiftPackageReference "SwiftUI-CachedAsyncImage" */;
+			productName = CachedAsyncImage;
+		};
 		5761CF1527541B6B001D43A8 /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5761CF1427541B6B001D43A8 /* XCRemoteSwiftPackageReference "AlertToast" */;
@@ -648,11 +662,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5761CF1727541FF5001D43A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFunctionsCombine-Community";
-		};
-		5761CF2227541FF5001D43A8 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5761CF1727541FF5001D43A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
 		};
 		5761CF252754E872001D43A8 /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;

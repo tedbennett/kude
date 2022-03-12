@@ -15,6 +15,7 @@ class HomeViewModel: ObservableObject {
     @Published var searchState: SessionState = .notSearching
     @Published var startingWebAuthSession = false
     @Published var presentSettings = false
+    @Published var isHost = UserManager.shared.user.host
     
     @Published var presentSessionView = false
     
@@ -27,8 +28,9 @@ class HomeViewModel: ObservableObject {
     
     private let AUTHORISE_SPOTIFY_URL = URL(string: "https://accounts.spotify.com/authorize?client_id=1e6ef0ef377c443e8ebf714b5b77cad7&response_type=code&redirect_uri=kude://oauth-callback/&scope=user-read-private%20user-modify-playback-state%20user-read-recently-played%20user-read-playback-state&show_dialog=true")!
     
-    var isHost: Bool {
-        UserManager.shared.user.host
+    var currentlyHosting: Bool {
+        guard let id = session?.host else { return false }
+        return UserManager.shared.user.id == id
     }
     
     var webAuthSession: WebAuthenticationSession {
@@ -42,7 +44,9 @@ class HomeViewModel: ObservableObject {
                       print(error.debugDescription)
                       return
                   }
-            UserManager.shared.authoriseWithSpotify(code: code)
+            Task { @MainActor in
+                self.isHost = await UserManager.shared.authoriseWithSpotify(code: code)
+            }
         }
     }
     
@@ -52,14 +56,12 @@ class HomeViewModel: ObservableObject {
                 let session = try await FirebaseManager.shared.getSession(key: sessionKey)
                 searchState = .foundSession(session: session)
             } catch {
-                session = nil
                 searchState = .didNotFindSession
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     switch self.searchState {
                         case .didNotFindSession:
                             withAnimation {
                                 self.searchState = .notSearching
-                                self.sessionKey = ""
                             }
                         default: break
                     }
@@ -171,27 +173,27 @@ class HomeViewModel: ObservableObject {
     }
     
     func joinSession(from url: URL) {
-        func joinSession(from url: URL) {
-            guard url.host == "www.kude.app" || url.host == "kude.app",
-                  url.pathComponents.count == 3,
-                  url.pathComponents[1] == "session" else {
-                      return
-                  }
-            Task { @MainActor in
-                do {
-                    let session = try await FirebaseManager.shared.joinSession(id: url.pathComponents[2])
-                    UserManager.shared.addUserToSession(id: session.id)
-                    self.session = session
-                    listenToSession()
-                } catch {
-                    
-                }   
-            }
+        guard url.host == "www.kude.app" || url.host == "kude.app",
+              url.pathComponents.count == 3,
+              url.pathComponents[1] == "session" else {
+                  return
+              }
+        Task { @MainActor in
+            do {
+                let session = try await FirebaseManager.shared.joinSession(id: url.pathComponents[2])
+                UserManager.shared.addUserToSession(id: session.id)
+                self.session = session
+                listenToSession()
+            } catch {
+                
+            }   
         }
+        
     }
-
+    
     func logoutSpotifyButtonPressed() {
         UserManager.shared.logoutFromSpotify()
+        isHost = false
     }
     
     enum SessionState {

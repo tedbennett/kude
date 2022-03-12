@@ -8,6 +8,8 @@
 import SwiftUI
 import Firebase
 
+let APP_VERSION = 1
+
 @main
 struct kudeApp: App {
     init() {
